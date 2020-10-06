@@ -6,4 +6,7 @@
 * {
   font-family: "Poppins", sans-serif;
 }
+body {
+  z-index: -1;
+}
 </style>

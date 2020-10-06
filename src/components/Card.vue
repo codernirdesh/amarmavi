@@ -9,8 +9,7 @@
       </div>
       <div class="wrapper">
         <div class="card-title">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Explicabo,
-          fugiat.
+          {{ title }}
         </div>
         <div class="card-detail">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia ipsum
@@ -26,7 +25,8 @@ export default {
     tag: String,
     mediaImg: String,
     mediaAlt: String,
-    to: String
+    title: String,
+    image: String
   }
 };
 </script>
@@ -37,7 +37,6 @@ export default {
   box-shadow: 1px 3px 12px -6px rgba(0, 0, 0, 0.74);
   transition: all 200ms ease-in-out;
   &:hover {
-    border: 1px solid #6d6d6d;
     box-shadow: 1px 3px 12px -2px rgb(107, 236, 81);
     transform: scale(1.01);
     transition: all 200ms ease-in-out;
@@ -61,6 +60,7 @@ export default {
     .tag {
       border-radius: 0 19px 0 0;
       font-weight: normal;
+      font-size: 11px;
       color: #ffffff;
       background-color: rgb(236, 81, 81);
       grid-area: "tag";
