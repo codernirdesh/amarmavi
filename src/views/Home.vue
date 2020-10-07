@@ -1,8 +1,8 @@
 <template>
   <div class="home">
     <div class="buttons">
-      <button class="add" @click="getCardData">Add Cards</button>
       <button class="remove" @click="removeCardData">Delete Cards</button>
+      <button class="add" @click="getFromFirebase">Get from Firebase.</button>
     </div>
     <div class="loading" v-if="loading">
       <div class="loadingio-spinner-ripple-k2w3uwziw3">
@@ -17,10 +17,12 @@
       <Card
         v-for="(card, i) in cards"
         :key="i"
-        :title="card.author"
-        :mediaAlt="card.author"
-        :tag="`${card.width} x ${card.height}`"
-        :mediaImg="`https://picsum.photos/600/315?random=${i}`"
+        :title="card.title"
+        :description="card.description"
+        :mediaAlt="card.title"
+        :tag="card.year"
+        :mediaImg="card.imageURL"
+        :to="card.downloadLink"
       />
     </div>
   </div>
@@ -29,6 +31,7 @@
 <script>
 import Card from "@/components/Card";
 import axios from "axios";
+import db from "../services/firebase";
 export default {
   components: {
     Card
@@ -50,6 +53,20 @@ export default {
     removeCardData() {
       this.loading = true;
       this.cards = [];
+    },
+    getFromFirebase() {
+      db.collection("Movies").onSnapshot(response => {
+        const changes = response.docChanges();
+
+        changes.forEach(change => {
+          console.log(change.type);
+          if (change.type === "added") {
+            console.log(change.doc.data());
+            this.cards.push(change.doc.data());
+            this.loading = false;
+          }
+        });
+      });
     }
   }
 };
@@ -117,12 +134,12 @@ img {
 }
 .flex {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
 .loading {
   z-index: 2;
   background-color: rgb(236, 236, 236);
-  height: 100vh;
+  height: 93vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -130,8 +147,13 @@ img {
   justify-content: center;
 }
 .buttons {
+  z-index: 1;
+  background-color: #fff;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  // position: sticky;
+  // top: 0;
+  // left: 0;
   .add {
     margin: 5px 10px;
     padding: 5px 20px;
@@ -148,6 +170,17 @@ img {
     padding: 5px 20px;
     color: #ffffff;
     background-color: rgb(248, 49, 35);
+    transition: all 250ms ease-in-out;
+    &:hover {
+      box-shadow: 1px 3px 12px -6px rgba(0, 0, 0, 0.74);
+      transition: all 250ms ease-in-out;
+    }
+  }
+  .check {
+    margin: 5px 10px;
+    padding: 5px 20px;
+    color: #ffffff;
+    background-color: rgb(33, 114, 236);
     transition: all 250ms ease-in-out;
     &:hover {
       box-shadow: 1px 3px 12px -6px rgba(0, 0, 0, 0.74);

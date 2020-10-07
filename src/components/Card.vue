@@ -1,23 +1,24 @@
 <template>
-  <div class="card">
-    <div class="media-image">
-      <img :src="mediaImg" :alt="mediaAlt" style="object-fit: cover;" />
-    </div>
-    <div class="card-content">
-      <div class="tag">
-        {{ tag }}
+  <a :href="to">
+    <div class="card">
+      <div class="media-image">
+        <img :src="mediaImg" :alt="mediaAlt" style="object-fit: cover;" />
       </div>
-      <div class="wrapper">
-        <div class="card-title">
-          {{ title }}
+      <div class="card-content">
+        <div class="tag">
+          {{ tag }}
         </div>
-        <div class="card-detail">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia ipsum
-          accusantium ab ex.
+        <div class="wrapper">
+          <div class="card-title">
+            {{ title }}
+          </div>
+          <div class="card-detail">
+            {{ description }}
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </a>
 </template>
 <script>
 export default {
@@ -26,16 +27,20 @@ export default {
     mediaImg: String,
     mediaAlt: String,
     title: String,
-    image: String
+    description: String,
+    image: String,
+    to: String
   }
 };
 </script>
 <style lang="scss" scoped>
 .card {
+  // height: max-content;
   margin: 12px 10px;
   border-radius: 15px 15px 20px 20px;
   box-shadow: 1px 3px 12px -6px rgba(0, 0, 0, 0.74);
   transition: all 200ms ease-in-out;
+  cursor: pointer;
   &:hover {
     box-shadow: 1px 3px 12px -2px rgb(107, 236, 81);
     transform: scale(1.01);
@@ -58,6 +63,7 @@ export default {
     grid-template-areas: tag wrapper;
     padding: 0px 12px 0px 0px;
     .tag {
+      z-index: 0;
       border-radius: 0 19px 0 0;
       font-weight: normal;
       font-size: 11px;
