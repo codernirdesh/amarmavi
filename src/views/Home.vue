@@ -3,6 +3,7 @@
     <div class="buttons">
       <button class="remove" @click="removeCardData">Delete Cards</button>
       <button class="add" @click="getFromFirebase">Get from Firebase.</button>
+      <router-link class="check" to="/stream">Go to Stream Page.</router-link>
     </div>
     <div class="loading" v-if="loading">
       <div class="loadingio-spinner-ripple-k2w3uwziw3">

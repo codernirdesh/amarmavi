@@ -15,6 +15,7 @@
     "material-icons": "^0.2.3",
     "roboto-fontface": "*",
     "vue": "^2.6.11",
+    "vue-hls-player": "^1.0.6",
     "vue-router": "^3.2.0",
     "vuesax": "^3.4.7",
     "vuetify": "^2.2.11"
